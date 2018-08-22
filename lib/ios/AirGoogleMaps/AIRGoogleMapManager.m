@@ -200,7 +200,13 @@ RCT_EXPORT_METHOD(fitToElements:(nonnull NSNumber *)reactTag
       for (AIRGoogleMapMarker *marker in mapView.markers)
         bounds = [bounds includingCoordinate:marker.realMarker.position];
 
-      [mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:55.0f]];
+      GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:bounds withPadding:55.0f];
+
+      if (animated) {
+        [mapView animateWithCameraUpdate: cameraUpdate];
+      } else {
+        [mapView moveCamera: cameraUpdate];
+      }
     }
   }];
 }
@@ -236,7 +242,13 @@ RCT_EXPORT_METHOD(fitToSuppliedMarkers:(nonnull NSNumber *)reactTag
       CGFloat bottom = [RCTConvert CGFloat:edgePadding[@"bottom"]];
       CGFloat left = [RCTConvert CGFloat:edgePadding[@"left"]];
 
-      [mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)]];
+      GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)];
+
+      if (animated) {
+        [mapView animateWithCameraUpdate: cameraUpdate];
+      } else {
+        [mapView moveCamera: cameraUpdate];
+      }
     }
   }];
 }
@@ -265,7 +277,13 @@ RCT_EXPORT_METHOD(fitToCoordinates:(nonnull NSNumber *)reactTag
       CGFloat bottom = [RCTConvert CGFloat:edgePadding[@"bottom"]];
       CGFloat left = [RCTConvert CGFloat:edgePadding[@"left"]];
 
-      [mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)]];
+      GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)];
+
+      if (animated) {
+        [mapView animateWithCameraUpdate: cameraUpdate];
+      } else {
+        [mapView moveCamera: cameraUpdate];
+      }
     }
   }];
 }
